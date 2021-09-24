@@ -19,22 +19,22 @@ public class EmployeeRestController {
         employeeService = theemployeeService;
     }
 
-    @GetMapping("/employees")
+    @GetMapping("/employees/v1")
     public List<Employee> findAll() {
         return employeeService.findAll();
     }
 
-    @GetMapping("/employees/{employeeId}")
-    public Employee getEmployee(@PathVariable int employeeId){
-        Employee employee = employeeService.findById(employeeId);
+    @GetMapping("/employees/v1/{id}")
+    public Employee getEmployee(@PathVariable int id){
+        Employee employee = employeeService.findById(id);
 
         if (employee == null) {
-            throw new RuntimeException("Employee id not found - " + employeeId);
+            throw new RuntimeException("Employee id not found - " + id);
         }
         return employee;
     }
 
-    @PostMapping("/employees")
+    @PostMapping("/employees/v1")
     public Employee addEmployee(@RequestBody Employee theEmployee) {
 
         theEmployee.setId(0);
@@ -45,7 +45,7 @@ public class EmployeeRestController {
     }
 
 
-    @PutMapping("/employees")
+    @PutMapping("/employees/v1")
     public Employee updateEmployee(@RequestBody Employee theEmployee) {
 
         employeeService.save(theEmployee);
@@ -54,19 +54,19 @@ public class EmployeeRestController {
     }
 
 
-    @DeleteMapping("/employees/{employeeId}")
-    public String deleteEmployee(@PathVariable int employeeId) {
+    @DeleteMapping("/employees/v1/{id}")
+    public String deleteEmployee(@PathVariable int id) {
 
-        Employee tempEmployee = employeeService.findById(employeeId);
+        Employee tempEmployee = employeeService.findById(id);
 
 
         if (tempEmployee == null) {
-            throw new RuntimeException("Employee id not found - " + employeeId);
+            throw new RuntimeException("Employee id not found - " + id);
         }
 
-        employeeService.deleteById(employeeId);
+        employeeService.deleteById(id);
 
-        return "Deleted employee id - " + employeeId;
+        return "Deleted employee id - " + id;
     }
 
 
